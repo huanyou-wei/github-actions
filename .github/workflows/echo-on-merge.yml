@@ -1,5 +1,5 @@
 name: echo-on-merge
-run-name: ${{ github.actor }} is learning GitHub Actions
+run-name: ${{ github.actor }} is merging a PR
 on:
   pull_request:
     types:
@@ -11,4 +11,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo The PR was merge
+        echo The PR was merged
