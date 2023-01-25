@@ -24,7 +24,7 @@ jobs:
     # Build steps
     - name: Make txt file
       if: github.event_name == 'push' && contains(github.head_ref, '/add-metric')
-      run: echo This is sample text > MyFile4.txt
+      run: echo This is sample text > MyFile5.txt
 
     # Commit and push all changed files. 
     # Must only affect files that are listed in "paths-ignore".
@@ -34,6 +34,6 @@ jobs:
       run: |
         git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
         git config --global user.email "username@users.noreply.github.com"
-        git add MyFile4.txt
+        git add MyFile5.txt
         git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
         git push
