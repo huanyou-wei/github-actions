@@ -22,13 +22,13 @@ jobs:
         token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
     
     - name: Set environment variable "is-valid-branch"
-      if: github.event_name == 'pull_request' && contains(github.head_ref, '/add-metric')
+      if: env.is-valid-branch == false && github.event_name == 'pull_request' && contains(github.head_ref, '/add-metric')
       run: | 
         echo "is-valid-branch=true" >> $GITHUB_ENV
 
     # Build steps
     - name: Make txt file
-      if: github.event_name == 'push' && env.is-valid-branch == true
+      if: env.is-valid-branch == true && github.event_name == 'push'
       run: |
         echo "Branch name = ${{ github.head_ref }}"
         echo This is sample text > MyFile6.txt
@@ -37,7 +37,7 @@ jobs:
     # Must only affect files that are listed in "paths-ignore".
     - name: GIT Commit Build Artifacts (MyFile.txt)
       # Only run on main branch push (e.g. pull request merge).
-      if: github.event_name == 'push' && env.is-valid-branch == true
+      if: env.is-valid-branch == true && github.event_name == 'push'
       run: |
         echo "Branch name = ${{ github.head_ref }}"
         git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
