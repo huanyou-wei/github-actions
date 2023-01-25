@@ -16,13 +16,8 @@ jobs:
     - uses: actions/checkout@v3
 
     # Build steps
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '12' 
-    - name: Node Install
-      run: npm ci
-    - name: Node Build (lint, test, coverage, doc, build, package)
-      run: npm run package
+    - name: Make txt file
+      run: echo This is sample text > MyFile.txt
 
     # Commit and push all changed files.
     - name: GIT Commit Build Artifacts (coverage, dist, devdist, docs)
