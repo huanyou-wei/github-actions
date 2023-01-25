@@ -1,11 +1,11 @@
 name: on-merge-branch
-run-name: ${{ github.actor }} merged PR from test
+run-name: ${{ github.actor }} merged PR to main
 on:
   pull_request:
     types:
       - closed
     branches:
-      - 'test'
+      - 'main'
 
 jobs:
   if_merged:
@@ -13,4 +13,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo test PR was merged
+        echo PR to main was merged
