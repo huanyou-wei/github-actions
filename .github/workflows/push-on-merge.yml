@@ -22,7 +22,7 @@ jobs:
         token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
     
     - name: Set environment variable "is-valid-branch"
-      # if: github.event_name == 'pull_request' && contains(github.head_ref, '/add-metric')
+      if: env.is-valid-branch == false && github.event_name == 'pull_request' && contains(github.head_ref, '/add-metric')
       run: | 
         echo "Branch name = ${{ github.head_ref }}"
         echo "is-valid-branch=true" >> $GITHUB_ENV
