@@ -23,15 +23,18 @@ jobs:
 
     # Build steps
     - name: Make txt file
-      if: github.event_name == 'push' && contains(github.head_ref, '/add-metric')
-      run: echo This is sample text > MyFile5.txt
+      if: github.event_name == 'push'
+      run: |
+        echo Branch name ${{ github.head_ref }}
+        echo This is sample text > MyFile5.txt
 
     # Commit and push all changed files. 
     # Must only affect files that are listed in "paths-ignore".
     - name: GIT Commit Build Artifacts (MyFile.txt)
       # Only run on main branch push (e.g. pull request merge).
-      if: github.event_name == 'push' && contains(github.head_ref, '/add-metric')
+      if: github.event_name == 'push'
       run: |
+        echo Branch name ${{ github.head_ref }}
         git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
         git config --global user.email "username@users.noreply.github.com"
         git add MyFile5.txt
