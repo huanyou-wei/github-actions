@@ -23,9 +23,10 @@ jobs:
       with:
         token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
     
-    - name: Set environment variable "is-valid-branch"
-      if: github.event_name == 'pull_request' && contains(github.head_ref, '/add-metric')
-      run: echo "is-valid-branch=true" >> $GITHUB_ENV
+    # - name: Set environment variable "is-valid-branch"
+    #   if: github.event_name == 'pull_request' && contains(github.head_ref, '/add-metric')
+    #   run: | 
+    #     echo "is-valid-branch=true" >> $GITHUB_ENV
 
     # Build steps
     - name: Make txt file
