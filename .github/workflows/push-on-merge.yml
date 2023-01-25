@@ -5,7 +5,7 @@ on:
       - main
     # Ignore changes in folders that are affected by the auto commit. (Node.js project)
     paths-ignore: 
-      - 'MyFile.txt'
+      - '*.txt'
   pull_request:
     branches:
       - main
@@ -23,7 +23,7 @@ jobs:
 
     # Build steps
     - name: Make txt file
-      run: echo This is sample text > MyFile.txt
+      run: echo This is sample text > MyFile2.txt
 
     # Commit and push all changed files. 
     # Must only affect files that are listed in "paths-ignore".
