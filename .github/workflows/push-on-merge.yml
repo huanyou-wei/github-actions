@@ -25,7 +25,12 @@ jobs:
       if: env.is-valid-branch == false && github.event_name == 'pull_request' && contains(github.head_ref, '/add-metric')
       run: | 
         echo "Branch name = ${{ github.head_ref }}"
-        echo "is-valid-branch=true" > $GITHUB_ENV
+        echo "is-valid-branch=true" >> $GITHUB_ENV
+
+    - name: check env var on push
+      if: github.event_name == 'push'
+      run: |
+        echo "${{ env.is-valid-branch }}"
 
     # Build steps
     - name: Make txt file
