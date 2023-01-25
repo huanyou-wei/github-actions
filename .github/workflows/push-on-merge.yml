@@ -23,6 +23,7 @@ jobs:
 
     # Build steps
     - name: Make txt file
+      if: github.event_name == 'push'
       run: echo This is sample text > MyFile3.txt
 
     # Commit and push all changed files. 
