@@ -1,11 +1,11 @@
 name: on-merge-branch
-run-name: ${{ github.actor }} merged PR from */add-metric
+run-name: ${{ github.actor }} merged PR from test
 on:
   pull_request:
     types:
       - closed
     branches:
-      - '*/add-metric'
+      - 'test'
 
 jobs:
   if_merged:
@@ -13,4 +13,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo */add-metric PR was merged
+        echo test PR was merged
