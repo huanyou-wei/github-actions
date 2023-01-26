@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: On Push to Main
 on:
   push:
     branches:
@@ -10,8 +10,8 @@ jobs:
     # if: contains(github.head_ref, '/add-metric')
     runs-on: ubuntu-latest
     env: 
-      CI_COMMIT_MESSAGE: Continuous Integration Build Artifacts
-      CI_COMMIT_AUTHOR: Continuous Integration
+      CI_COMMIT_MESSAGE: Push to Main Build Artifacts
+      CI_COMMIT_AUTHOR: Push to Main
     steps:
     - uses: actions/checkout@v3
       with:
