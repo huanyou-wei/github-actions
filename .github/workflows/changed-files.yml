@@ -23,4 +23,4 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
       - name: Display files
         run: |
-          echo env.txt
+          echo "${{ env.txt }}"
