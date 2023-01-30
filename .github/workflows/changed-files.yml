@@ -19,7 +19,7 @@ jobs:
         # Set outputs using the command.
         run: |
           echo "txt<<EOF" >> $GITHUB_ENV
-          echo "git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .txt$ | xargs" >> $GITHUB_ENV
+          git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .txt$ | xargs >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
       - name: Display files
         run: |
