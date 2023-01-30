@@ -9,9 +9,6 @@ jobs:
   changedfiles:
     runs-on: ubuntu-latest
     # Map a step output to a job output
-    outputs:
-      all: ${{ steps.changes.outputs.all}}
-      txt: ${{ steps.changes.outputs.txt }}
     steps:
         # Make sure we have some code to diff.
       - name: Checkout repository
@@ -20,14 +17,18 @@ jobs:
         id: changes
         # Set outputs using the command.
         run: |
-          echo "::set-output name=all::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | xargs)"
-          echo "::set-output name=txt::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .txt$ | xargs)"
+          echo "all<<EOF" >> $GITHUB_ENV
+          echo "::set-output name=all::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | xargs)" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          echo "txt<<EOF" >> $GITHUB_ENV
+          echo "::set-output name=txt::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .txt$ | xargs)" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
   lint:
     runs-on: ubuntu-latest
     # require the first job to have ran
     needs: changedfiles
     # only run there are changed files
-    if: ${{needs.changedfiles.outputs.txt}}
+    if: ${env.outputs.txt}}
     steps:
       - name: echo changed files
-        run: echo ${{needs.changedfiles.outputs.txt}}
+        run: echo ${{env.outputs.txt}}
