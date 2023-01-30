@@ -28,7 +28,7 @@ jobs:
     # require the first job to have ran
     needs: changedfiles
     # only run there are changed files
-    if: ${{env.outputs.txt}}
+    if: ${{env.txt}}
     steps:
       - name: echo changed files
-        run: echo ${{env.outputs.txt}}
+        run: echo ${{env.txt}}
