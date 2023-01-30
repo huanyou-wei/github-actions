@@ -1,0 +1,33 @@
+name: Get Changed Files
+on:
+  pull_request:
+    branches:
+      - main
+    paths: 
+      - '.github/workflows/*.yml'
+jobs:
+  changedfiles:
+    runs-on: ubuntu-latest
+    # Map a step output to a job output
+    outputs:
+      all: ${{ steps.changes.outputs.all}}
+      txt: ${{ steps.changes.outputs.txt }}
+    steps:
+        # Make sure we have some code to diff.
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Get changed files
+        id: changes
+        # Set outputs using the command.
+        run: |
+          echo "::set-output name=all::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | xargs)"
+          echo "::set-output name=txt::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .txt$ | xargs)"
+  lint:
+    runs-on: ubuntu-latest
+    # require the first job to have ran
+    needs: changedfiles
+    # only run there are changed files
+    if: ${{needs.changedfiles.outputs.txt}}
+    steps:
+      - name: echo changed files
+        run: echo ${{needs.changedfiles.outputs.txt}}
