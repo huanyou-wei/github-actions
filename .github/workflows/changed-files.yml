@@ -16,21 +16,11 @@ jobs:
         with:
           token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
       - name: Get changed files
-        id: changes
         # Set outputs using the command.
         run: |
-          echo "all<<EOF" >> $GITHUB_ENV
-          echo "git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | xargs" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
           echo "txt<<EOF" >> $GITHUB_ENV
           echo "git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .txt$ | xargs" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-  lint:
-    runs-on: ubuntu-latest
-    # require the first job to have ran
-    needs: changedfiles
-    # only run there are changed files
-    if: ${{needs.changedfiles.env.txt}}
-    steps:
-      - name: echo changed files
-        run: echo ${{needs.changedfiles.env.txt}}
+      - name: Display files
+        run: |
+          echo env.txt
