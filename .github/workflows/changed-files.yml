@@ -15,12 +15,5 @@ jobs:
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
-      - name: array
-        id: arr
-        run: |
-          arr=()
-          for i in "$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})"
-          do
-            arr+=($i)
-            echo ${i}
-          done
+      - name: display
+        run: echo "$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})"
