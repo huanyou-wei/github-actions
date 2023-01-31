@@ -16,7 +16,8 @@ jobs:
         with:
           token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
           fetch-depth: 2
+      # git diff --name-only HEAD^ HEAD -> get the different files of source branch (changed-files) with parent of source branch (main)
       - name: display
         run: |
           echo "${GITHUB_HEAD_REF}"
-          echo "$(git diff --name-only HEAD^ HEAD)"
+          echo "$(git diff --name-only ${GITHUB_BASE_REF} ${GITHUB_HEAD_REF})"
