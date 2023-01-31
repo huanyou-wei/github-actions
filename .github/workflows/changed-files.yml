@@ -19,5 +19,7 @@ jobs:
       # git diff --name-only HEAD^ HEAD -> get the different files of source branch (changed-files) with parent of source branch (main)
       - name: display
         run: |
-          echo "${GITHUB_HEAD_REF}"
-          echo "$(git diff --name-only origin/${GITHUB_BASE_REF} origin/${GITHUB_HEAD_REF})"
+          echo "${{ github.event.pull_request.base.sha }}"
+          echo "${{ github.event.pull_request.head.sha }}"
+          echo "$(git rev-parse HEAD^)"
+          echo "$(git rev-parse HEAD)"
