@@ -20,4 +20,4 @@ jobs:
       - name: display
         run: |
           echo "${GITHUB_HEAD_REF}"
-          echo "$(git diff --name-only ${GITHUB_BASE_REF} ${GITHUB_HEAD_REF})"
+          echo "$(git diff --name-only ${github.base_ref} ${github.head_ref})"
