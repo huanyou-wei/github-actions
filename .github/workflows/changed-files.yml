@@ -16,4 +16,6 @@ jobs:
         with:
           token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
       - name: display
-        run: echo "$(git status)"
+        run: |
+          echo "${GITHUB_HEAD_REF}"
+          echo "$(git diff main ${GITHUB_HEAD_REF})"
