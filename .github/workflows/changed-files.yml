@@ -21,6 +21,7 @@ jobs:
         run: |
           echo "$(git diff --name-only ${{ github.event.pull_request.base.sha }} HEAD | grep .txt$)"
       - name: loop
+        id: loo
         run: |
           arr=()
           for i in "$(git diff --name-only ${{ github.event.pull_request.base.sha }} HEAD | grep .txt$)"
@@ -29,7 +30,9 @@ jobs:
             arr+=($i)
           done
           echo ${arr[@]/%.txt/}
-          echo "array=$arr[@]" >> $GITHUB_ENV
+        env:
+          names: ${arr[@]/%.txt/}
+
       - name: env arr
         run: |
-          echo "${{ env.array }}"
+          echo ${{loo.env.names}}
