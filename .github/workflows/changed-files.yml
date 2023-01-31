@@ -19,11 +19,11 @@ jobs:
       # git diff --name-only HEAD^ HEAD -> get the different files of source branch (changed-files) with parent of source branch (main)
       - name: display
         run: |
-          echo "$(git diff --name-only ${{ github.event.pull_request.base.sha }} HEAD | grep *.txt)"
+          echo "$(git diff --name-only ${{ github.event.pull_request.base.sha }} HEAD | grep .txt$)"
       - name: loop
         run: |
           arr=()
-          for i in "$(git diff --name-only ${{ github.event.pull_request.base.sha }} HEAD | grep *.txt)"
+          for i in "$(git diff --name-only ${{ github.event.pull_request.base.sha }} HEAD | grep .txt$)"
           do
             echo "$i"
             arr+=($i)
