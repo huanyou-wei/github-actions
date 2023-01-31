@@ -28,8 +28,8 @@ jobs:
             echo "$i"
             arr+=($i)
           done
-          echo ${arr[@]}
-          echo "arr=${arr[@]}" >> $GITHUB_ENV
+          echo ${arr[@]/%.txt/}
+          echo "arr=true" >> $GITHUB_ENV
       - name: env arr
         run: |
           echo "${{ env.arr }}"
