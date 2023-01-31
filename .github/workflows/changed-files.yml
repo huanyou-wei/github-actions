@@ -22,10 +22,11 @@ jobs:
           echo "$(git diff --name-only ${{ github.event.pull_request.base.sha }} HEAD)"
       - name: loop
         run: |
-          array=()
+          arr=()
           for i in "$(git diff --name-only ${{ github.event.pull_request.base.sha }} HEAD)"
           do
             echo "$i"
-            array+=($i)
+            arr+=($i)
           done
-          echo array
+          echo "$arr"
+          echo ${arr[@]}
