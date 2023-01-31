@@ -29,7 +29,7 @@ jobs:
             arr+=($i)
           done
           echo ${arr[@]/%.txt/}
-          echo "arr=true" >> $GITHUB_ENV
+          echo "arr=${{arr[@]}}" >> $GITHUB_ENV
       - name: env arr
         run: |
           echo "${{ env.arr }}"
