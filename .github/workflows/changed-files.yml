@@ -17,4 +17,4 @@ jobs:
           token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
           fetch-depth: 2
       - name: display
-        run: echo "$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})"
+        run: echo "$(git diff --name-only origin/main origin/${GITHUB_HEAD_REF})"
