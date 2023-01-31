@@ -22,5 +22,5 @@ jobs:
           for i in "$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})"
           do
             arr+=($i)
+            echo ${i}
           done
-          echo ${arr}
