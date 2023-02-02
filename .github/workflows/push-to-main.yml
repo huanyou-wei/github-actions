@@ -28,9 +28,8 @@ jobs:
       # Only run on main branch push (e.g. pull request merge).
       # if: env.is-auto-commit == false
       run: |
-        echo This is sample text > test.yml
         git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
         git config --global user.email "username@users.noreply.github.com"
-        git add *.yml
+        git add .
         git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
         git push
