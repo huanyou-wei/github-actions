@@ -29,7 +29,7 @@ jobs:
       # Only run on main branch push (e.g. pull request merge).
       # if: env.is-auto-commit == false
       run: |
-        echo This is sample text > hello2.txt
+        echo This is sample text > hello3.txt
         if [[ "$(git status -s)" != "" ]];
         then
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
