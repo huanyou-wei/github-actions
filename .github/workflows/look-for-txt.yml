@@ -1,0 +1,19 @@
+name: On Txt
+on:
+  pull_request:
+    branches:
+      - main
+    paths: 
+      - '*.txt'
+jobs:
+  build:
+    # if: contains(github.head_ref, '/add-metric')
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+        token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
+
+    - name: Say Hello
+      run: echo "hello world"
