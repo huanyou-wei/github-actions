@@ -1,0 +1,33 @@
+name: On Push to Branch
+on:
+  pull_request:
+    branches:
+      - main
+    paths: 
+      - '.github/workflows/*.yml'
+jobs:
+  build:
+    # if: contains(github.head_ref, '/add-metric')
+    runs-on: ubuntu-latest
+    env: 
+      CI_COMMIT_MESSAGE: Push to Main Build Artifacts
+      CI_COMMIT_AUTHOR: Push to Main
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+        token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
+    
+    # Set environment variable "is-auto-commit" 
+    # - name: Set environment variable "is-auto-commit"
+    #   if: github.event.commits[0].message == env.CI_COMMIT_MESSAGE && github.event.commits[0].author.name == env.CI_COMMIT_AUTHOR
+    #   run: echo "is-auto-commit=true" >> $GITHUB_ENV
+
+    # Commit and push all changed files. 
+    # Must only affect files that are listed in "paths-ignore".
+    - name: GIT Commit Build Artifacts
+      # Only run on main branch push (e.g. pull request merge).
+      # if: env.is-auto-commit == false
+      run: |
+        echo This is sample text > hello2.txt
+        git push
