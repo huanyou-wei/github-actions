@@ -40,13 +40,12 @@ jobs:
         while [ "$is_auto_commit" == "false" ]
         do
           hash="$(git log -1 --pretty=format:'%h' HEAD~$((count)))"
-          echo "List of files changed in commit $hash"
+          echo "----- List of files changed in commit $hash -----"
 
           changed_files="$(git diff --name-only HEAD~$((count+1)) HEAD~$((count)))"
           echo -e "$changed_files\n"
 
-          changed_yaml_files="$(git diff --name-only HEAD~$((count+1)) HEAD~$((count)) | grep -E "(\.yml|\.yaml)$")"
-          if [[ "$changed_yaml_files" != "" ]];
+          if [[ "$(git diff --name-only HEAD~$((count+1)) HEAD~$((count)) | grep -E "(\.yml|\.yaml)$")" != "" ]];
           then
             echo "Detected YAML changes! DAGs will be generated..."
             echo "generate-dags=true" >> $GITHUB_ENV
