@@ -45,7 +45,7 @@ jobs:
           changed_files="$(git diff --name-only HEAD~$((count+1)) HEAD~$((count)))"
           echo -e "$changed_files\n"
 
-          changed_yaml_files="$(git diff --name-only HEAD~$((count+1)) HEAD~$((count)) | grep '.yml|.yaml'$)"
+          changed_yaml_files="$(git diff --name-only HEAD~$((count+1)) HEAD~$((count)) | grep -E "(\.yml|\.yaml)$")"
           if [[ "$changed_yaml_files" != "" ]];
           then
             echo "Detected YAML changes! DAGs will be generated..."
